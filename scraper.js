@@ -23,8 +23,13 @@ const fs = require('fs');
                 console.log(err);
             });
 
-            console.log(`Found ${result.trim()} for ${searchTerm.trim()}`)
-            fs.appendFileSync('urls.csv', `${searchTerm.trim()},${result.trim()}\n`);
+            if (result) {
+                console.log(`Found ${result.trim()} for ${searchTerm.trim()}`)
+                fs.appendFileSync('urls.csv', `${searchTerm.trim()},${result.trim()}\n`);
+            } else {
+                console.warn(`Unable to find URL for ${searchTerm.trim()}`)
+            }
+
         }
         await browser.close();
     });
